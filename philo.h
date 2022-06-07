@@ -3,6 +3,13 @@
 
 # include <pthread.h>
 # include <limits.h>
+
+typedef struct s_philo
+{
+	int 		id;
+	pthread_t	philo;
+} t_philo;
+
 typedef struct s_tasks
 {
 	int	time_to_die;
@@ -13,17 +20,16 @@ typedef struct s_tasks
 
 }	t_tasks;
 
-typedef struct s_philop
+typedef struct s_philos
 {
-	int				id;
-	pthread_t		philo[200];
+	t_philo			philo[200];
 	pthread_mutex_t	forks[200];
 	pthread_mutex_t	writing;
 	t_tasks			philo_tasks;
 
-} t_philo;
+} t_philos;
 
 int	ft_atoi(const char *str);
 //init phiosophers forks and setup data
-void ft_init_philos(t_philo *philos, int ac, char **argv);
+
 #endif
