@@ -7,15 +7,14 @@ void *routine(void *mutex)
 {
 	int i = 0;
 	int d;
-
-	printf("%d\n", d);
-	while(i++ < 100000000)
+	
+	while(i++ < 1)
 	{
-		if ((d = pthread_mutex_lock(mutex)))
-			perror("Error : first thread mutex_lock :");
+		// if ((d = pthread_mutex_lock(mutex)))
+		// 	perror("Error : first thread mutex_lock :");
 		x++;
-		if (pthread_mutex_unlock(mutex))
-			perror("Error : first thread mutex_unlock :");
+		// if (pthread_mutex_unlock(mutex))
+		// 	perror("Error : first thread mutex_unlock :");
 	}
 	return (NULL);
 }
