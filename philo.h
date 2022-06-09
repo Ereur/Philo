@@ -18,6 +18,8 @@ typedef struct s_philo
 	int				time_to_eat;
 	int 			time_to_sleep;
 	int 			nb_of_philos;
+	size_t				last_meal;
+	size_t			curent_time;
 	pthread_mutex_t	*writing;
 } t_philo;
 
