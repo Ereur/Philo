@@ -25,7 +25,7 @@ int	check_deth(t_philo *philo)
 
 	time = get_time();
 
-	printf("%ld \n", get_stamp(philo->last_meal, time));
+	// printf("%d %ld \n", philo->id,get_stamp(philo->last_meal, time));
 	if (get_stamp(philo->last_meal, time) >= philo->time_to_die)
 	{
 		print_action("has diead\n", philo);
@@ -62,8 +62,6 @@ void	print_action(char *message, t_philo *philos)
 
 void	philo_eats(t_philo *philo, int i)
 {
-	if (i)
-	{	
 		pthread_mutex_lock(philo->left_fork);
 		print_action("has taken left_fork",philo);
 		pthread_mutex_lock(philo->right_fork);
@@ -75,21 +73,6 @@ void	philo_eats(t_philo *philo, int i)
 		pthread_mutex_unlock(philo->right_fork);
 		print_action("is sleeping",philo);
 		usleep(philo->time_to_sleep * 1000);
-	}
-	else 
-	{
-		pthread_mutex_lock(philo->right_fork);
-		print_action("has taken Righ_fork",philo);
-		pthread_mutex_lock(philo->left_fork);
-		print_action("has taken left_fork",philo);
-		philo->last_meal = get_time();
-		print_action("is eating",philo);
-		usleep(philo->time_to_eat);
-		pthread_mutex_unlock(philo->left_fork);
-		pthread_mutex_unlock(philo->right_fork);
-		print_action("is sleeping",philo);
-		usleep(philo->time_to_sleep);
-	}
 }
 
 
@@ -98,18 +81,12 @@ void *routin(void *philos)
 	t_philo	*philo = (t_philo *)philos;
 	while (check_deth(philo))
 	{
-		// pthread_mutex_lock(philo->writing);		philo->last_meal = get_time();
-
-		if (philo->nb_of_philos == philo->id)
-		{
-			philo_eats(philo, 0);
-			print_action("Is thinking",philo);
-		}
-		else
-		{
-			philo_eats(philo, 1);
-			print_action("Is thinking",philo);
-		}
+		if (philo->id % 2 == 0)
+			usleep(50);
+		
+		philo_eats(philo, 1);
+		print_action("Is thinking",philo);
+		// }
 		// pthread_mutex_unlock(philo->writing);
 	}
 	return	(NULL);
