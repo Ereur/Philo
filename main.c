@@ -66,7 +66,9 @@ void	philo_eats(t_philo *philo, int i)
 		print_action("has taken left_fork",philo);
 		pthread_mutex_lock(philo->right_fork);
 		print_action("has taken Righ_fork",philo);
+		pthread_mutex_lock(&philo->meal_check);
 		philo->last_meal = get_time();
+		pthread_mutex_unlock(&philo->meal_check);
 		print_action("is eating",philo);
 		usleep(philo->time_to_eat * 1000);
 		pthread_mutex_unlock(philo->left_fork);
@@ -79,7 +81,7 @@ void	philo_eats(t_philo *philo, int i)
 void *routin(void *philos)
 {
 	t_philo	*philo = (t_philo *)philos;
-	while (check_deth(philo))
+	while (1)
 	{
 		if (philo->id % 2 == 0)
 			usleep(50);
@@ -138,6 +140,7 @@ void ft_lunch_philos(t_philos *philos)
 {
 	size_t time;
 	int		i;
+	size_t	time_stamp;
 
 	time = get_time();
 	i = 0;
@@ -150,6 +153,25 @@ void ft_lunch_philos(t_philos *philos)
 		pthread_create(&(philos->philo[i]->philo), NULL, routin, (philos->philo[i]));
 		i++;
 		// usleep(1000);
+	}
+	i = 0;
+	while (1)
+	{
+		while (i < philos->nb_of_philos)
+		{
+			time = get_time();
+			pthread_mutex_lock(&philos->philo[i]->meal_check);
+			if (get_stamp(philos->philo[i]->last_meal, time) >= philos->philo[i]->time_to_die)
+			{	
+				time_stamp = get_stamp(philos->philo[i]->curent_time, get_time());
+				pthread_mutex_lock((philos->philo[i]->writing));
+				printf("%ld %d died\n", time_stamp, philos->philo[i]->id);
+				exit(1);
+			}
+			pthread_mutex_unlock(&philos->philo[i]->meal_check);
+			i++;
+		}
+		i = 0;
 	}
 	
 }
