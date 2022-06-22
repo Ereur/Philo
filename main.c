@@ -1,8 +1,5 @@
 #include "philo.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include  <sys/time.h>
+
 
 void	print_action(char *message, t_philo *philos);
 
@@ -70,11 +67,11 @@ void	philo_eats(t_philo *philo, int i)
 		philo->last_meal = get_time();
 		pthread_mutex_unlock(&philo->meal_check);
 		print_action("is eating",philo);
-		usleep(philo->time_to_eat * 1000);
+		ft_usleep((philo->time_to_eat));
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
 		print_action("is sleeping",philo);
-		usleep(philo->time_to_sleep * 1000);
+		ft_usleep((philo->time_to_sleep));
 }
 
 
@@ -108,7 +105,9 @@ void ft_init_mutex(t_philos *philos)
 	pthread_mutex_init(&(philos->writing), NULL);
 	while (i < philos->nb_of_philos)
 		philos->philo[i++]->writing = &philos->writing;
-	
+	i = 0;
+	while (i < philos->nb_of_philos)
+		pthread_mutex_init(&philos->philo[i++]->meal_check, NULL);
 }
 
 void ft_init_philos(t_philos *philos, int ac, char **argv)
@@ -152,7 +151,7 @@ void ft_lunch_philos(t_philos *philos)
 		init_forks(philos, philos->philo[i]->id);
 		pthread_create(&(philos->philo[i]->philo), NULL, routin, (philos->philo[i]));
 		i++;
-		// usleep(1000);
+		// ft_usleep(1000);
 	}
 	i = 0;
 	while (1)
@@ -166,11 +165,13 @@ void ft_lunch_philos(t_philos *philos)
 				time_stamp = get_stamp(philos->philo[i]->curent_time, get_time());
 				pthread_mutex_lock((philos->philo[i]->writing));
 				printf("%ld %d died\n", time_stamp, philos->philo[i]->id);
+				// pthread_mutex_lock((philos->philo[i]->writing));
 				exit(1);
 			}
 			pthread_mutex_unlock(&philos->philo[i]->meal_check);
 			i++;
 		}
+		// ft_usleep(philos->philo[0]->time_to_eat);
 		i = 0;
 	}
 	
@@ -187,11 +188,11 @@ void ft_wait_philos(t_philos *philos)
 	}
 }
 
-int main(int ac, char **argv)
-{
-	t_philos philos;
+// int main(int ac, char **argv)
+// {
+// 	t_philos philos;
 
-	ft_init_philos(&philos, ac, argv);
-	ft_lunch_philos(&philos);
-	ft_wait_philos(&philos);
-}
+// 	ft_init_philos(&philos, ac, argv);
+// 	ft_lunch_philos(&philos);
+// 	ft_wait_philos(&philos);
+// }

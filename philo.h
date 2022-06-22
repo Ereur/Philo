@@ -3,7 +3,10 @@
 
 # include <pthread.h>
 # include <limits.h>
-
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include  <sys/time.h>
 
 struct s_tasks;
 
@@ -42,5 +45,7 @@ typedef struct s_philos
 
 int	ft_atoi(const char *str);
 //init phiosophers forks and setup data
-
+size_t	get_stamp(size_t a, size_t b);
+size_t	get_time();
+void	ft_usleep(size_t time);
 #endif
