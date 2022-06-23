@@ -6,7 +6,7 @@
 /*   By: aamoussa <aamoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 00:02:43 by aamoussa          #+#    #+#             */
-/*   Updated: 2022/06/23 00:22:50 by aamoussa         ###   ########.fr       */
+/*   Updated: 2022/06/23 01:28:11 by aamoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_philo
 	pthread_mutex_t		meal_check;
 	size_t				curent_time;
 	pthread_mutex_t		*writing;
+	int					count_eats;
 }	t_philo;
 
 typedef struct s_philos

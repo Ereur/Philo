@@ -6,7 +6,7 @@
 /*   By: aamoussa <aamoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 23:21:09 by aamoussa          #+#    #+#             */
-/*   Updated: 2022/06/23 00:51:20 by aamoussa         ###   ########.fr       */
+/*   Updated: 2022/06/23 01:00:34 by aamoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,6 @@ int	check_deth(t_philo *philo)
 		exit(1);
 	}
 	return (1);
-}
-
-void	ft_wait_philos(t_philos *philos)
-{
-	int	i;
-
-	i = 0;
-	while (i < philos->nb_of_philos)
-	{
-		pthread_join(philos->philo[i]->philo, NULL);
-		i++;
-	}
 }
 
 int	main(int ac, char **argv)

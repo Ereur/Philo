@@ -6,7 +6,7 @@
 /*   By: aamoussa <aamoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 21:54:50 by aamoussa          #+#    #+#             */
-/*   Updated: 2022/06/22 23:47:25 by aamoussa         ###   ########.fr       */
+/*   Updated: 2022/06/23 01:29:22 by aamoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_init_philos(t_philos *philos, int ac, char **argv)
 		philos->philo[i]->time_to_eat = ft_atoi(argv[3]);
 		philos->philo[i]->time_to_sleep = ft_atoi(argv[4]);
 		philos->philo[i]->nb_of_philos = ft_atoi(argv[1]);
+		philos->philo[i]->count_eats = 0;
 		if (ac == 6)
 			philos->philo[i]->number_of_eats = ft_atoi(argv[5]);
 		else

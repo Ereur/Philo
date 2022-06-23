@@ -6,7 +6,7 @@
 /*   By: aamoussa <aamoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 22:42:25 by aamoussa          #+#    #+#             */
-/*   Updated: 2022/06/22 23:34:45 by aamoussa         ###   ########.fr       */
+/*   Updated: 2022/06/23 01:29:56 by aamoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	philo_eats(t_philo *philo)
 	philo->last_meal = get_time();
 	pthread_mutex_unlock(&philo->meal_check);
 	print_action("is eating", philo);
+	philo->count_eats++;
 	ft_usleep((philo->time_to_eat));
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
