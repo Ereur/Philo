@@ -6,7 +6,7 @@
 /*   By: aamoussa <aamoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 16:56:32 by aamoussa          #+#    #+#             */
-/*   Updated: 2022/06/23 17:01:55 by aamoussa         ###   ########.fr       */
+/*   Updated: 2022/06/23 19:51:37 by aamoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ typedef struct s_philos
 	pthread_mutex_t	writing;
 
 }	t_philos;
+
+typedef struct s_data
+{
+	pthread_t philo;
+	pthread_t philo1;
+	sem_t		*mutex;
+	int			*a;
+}	t_data;
 
 int		ft_atoi(const char *str);
 //init phiosophers forks and setup data
