@@ -6,7 +6,7 @@
 /*   By: aamoussa <aamoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 00:02:43 by aamoussa          #+#    #+#             */
-/*   Updated: 2022/06/23 01:28:11 by aamoussa         ###   ########.fr       */
+/*   Updated: 2022/06/23 02:57:12 by aamoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ int		ft_atoi(const char *str);
 void	ft_init_mutex(t_philos *philos);
 void	ft_init_philos(t_philos *philos, int ac, char **argv);
 void	ft_lunch_philos(t_philos *philos);
-
+void	init_forks(t_philos *philos, int id);
 #endif

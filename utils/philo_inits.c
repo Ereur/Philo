@@ -6,11 +6,25 @@
 /*   By: aamoussa <aamoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 21:54:50 by aamoussa          #+#    #+#             */
-/*   Updated: 2022/06/23 01:29:22 by aamoussa         ###   ########.fr       */
+/*   Updated: 2022/06/23 02:56:51 by aamoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+void	init_forks(t_philos *philos, int id)
+{
+	if (id == philos->nb_of_philos)
+	{	
+		philos->philo[id - 1]->left_fork = &philos->forks[id - 1];
+		philos->philo[id - 1]->right_fork = &philos->forks[0];
+	}
+	else
+	{
+		philos->philo[id - 1]->left_fork = &philos->forks[id - 1];
+		philos->philo[id - 1]->right_fork = &philos->forks[id];
+	}
+}
 
 void	ft_init_mutex(t_philos *philos)
 {

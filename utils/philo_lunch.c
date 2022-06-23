@@ -6,7 +6,7 @@
 /*   By: aamoussa <aamoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 22:02:43 by aamoussa          #+#    #+#             */
-/*   Updated: 2022/06/23 01:57:47 by aamoussa         ###   ########.fr       */
+/*   Updated: 2022/06/23 02:56:43 by aamoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,20 @@ void	*routin(void *philos)
 	return (NULL);
 }
 
-void	init_forks(t_philos *philos, int id)
+int	check_philos_life(t_philos *philos, int i, int time)
 {
-	if (id == philos->nb_of_philos)
+	size_t	time_stamp;
+
+	if (get_stamp(philos->philo[i]->last_meal, time)
+		>= philos->philo[i]->time_to_die)
 	{	
-		philos->philo[id - 1]->left_fork = &philos->forks[id - 1];
-		philos->philo[id - 1]->right_fork = &philos->forks[0];
+		time_stamp = get_stamp(philos->philo[i]->curent_time,
+				get_time());
+		pthread_mutex_lock((philos->philo[i]->writing));
+		printf("%ld %d died\n", time_stamp, philos->philo[i]->id);
+		return (1);
 	}
-	else
-	{
-		philos->philo[id - 1]->left_fork = &philos->forks[id - 1];
-		philos->philo[id - 1]->right_fork = &philos->forks[id];
-	}
+	return (0);
 }
 
 int	check_eats(t_philos *philos)
@@ -57,11 +59,10 @@ int	check_eats(t_philos *philos)
 	return (0);
 }
 
-void	check_philos(t_philos *philos)
+void	check(t_philos *philos)
 {
 	int		i;
 	int		time;
-	size_t	time_stamp;
 
 	i = 0;
 	while (1)
@@ -71,19 +72,10 @@ void	check_philos(t_philos *philos)
 			time = get_time();
 			pthread_mutex_lock(&philos->philo[i]->meal_check);
 			if (philos->philo[i]->number_of_eats != -1)
-			{	
 				if (!(check_eats(philos)))
 					return ;
-			}
-			if (get_stamp(philos->philo[i]->last_meal, time)
-				>= philos->philo[i]->time_to_die)
-			{	
-				time_stamp = get_stamp(philos->philo[i]->curent_time,
-						get_time());
-				pthread_mutex_lock((philos->philo[i]->writing));
-				printf("%ld %d died\n", time_stamp, philos->philo[i]->id);
+			if (check_philos_life(philos, i, time))
 				return ;
-			}
 			pthread_mutex_unlock(&philos->philo[i]->meal_check);
 			i++;
 		}
@@ -108,5 +100,5 @@ void	ft_lunch_philos(t_philos *philos)
 			(philos->philo[i]));
 		i++;
 	}
-	check_philos(philos);
+	check(philos);
 }
