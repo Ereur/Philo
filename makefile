@@ -1,9 +1,9 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SRCS = main.c ./utils/philo_lunch.c ./utils/philo_inits.c ./utils/atoi.c ./utils/actions.c ./utils/ft_sleep.c
+SRCS = ./philo/main.c ./philo/utils/philo_lunch.c ./philo/utils/philo_inits.c ./philo/utils/atoi.c ./philo/utils/actions.c ./philo/utils/ft_sleep.c
 # FUNC_BONUS = checker.c ./push_swap_utils/get_next_line.c ./push_swap_utils/ft_check_args.c ./push_swap_utils/error_handler.c \
 # 			 ./push_swap_utils/operations.c ./push_swap_utils/operations1.c ./push_swap_utils/libft/libft.a
-NAME = philo.a
+NAME = ./philo/philo.a
 NAME_BONUS = philo_bonus.a 
 OBJS = $(SRCS:.c=.o)
 AR = ar rc
@@ -22,7 +22,7 @@ $(NAME): $(OBJS)
 	@rm -rf $(NAME_BONUS)
 	@echo $(CURSIVE)$(GRAY) "-MAKING philo..." $(NONE)
 	@$(AR) $(NAME) $(OBJS)
-	@$(CC) $(CFLAGS) $(NAME) -o philo
+	@$(CC) $(CFLAGS) $(NAME) -o philo.out
 	@echo  $(GREEN) "DONE!"
 
 bonus: $(NAME_BONUS)
@@ -41,7 +41,7 @@ clean:
 fclean: clean
 	@echo $(CURSIVE)$(GRAY) "     - Removing $(NAME)..." $(NONE)
 	@rm -rf $(NAME) $(NAME_BONUS)
-	@rm -rf philo
+	@rm -rf philo.out
 
 re : fclean all
 
