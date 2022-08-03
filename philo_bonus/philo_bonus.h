@@ -6,7 +6,7 @@
 /*   By: aamoussa <aamoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 16:56:32 by aamoussa          #+#    #+#             */
-/*   Updated: 2022/06/23 19:51:37 by aamoussa         ###   ########.fr       */
+/*   Updated: 2022/08/01 14:26:26 by aamoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ typedef struct s_philo
 {
 	int					id;
 	pthread_t			philo;
-	sem_t				*right_fork;
-	sem_t				*left_fork;
+	sem_t				*fork;
 	int					number_of_eats;
 	int					time_to_die;
 	int					time_to_eat;
@@ -42,9 +41,9 @@ typedef struct s_philo
 typedef struct s_philos
 {
 	t_philo			**philo;
-	sem_t			forks[200];
+	sem_t			*forks;
 	int				nb_of_philos;
-	pthread_mutex_t	writing;
+	sem_t			*writing;
 
 }	t_philos;
 
@@ -68,4 +67,6 @@ void	ft_init_mutex(t_philos *philos);
 void	ft_init_philos(t_philos *philos, int ac, char **argv);
 void	ft_lunch_philos(t_philos *philos);
 void	init_forks(t_philos *philos, int id);
+int		check_eats(t_philo *philo);
+int		check_philo_life(t_philo *philo, int i, int time);
 #endif

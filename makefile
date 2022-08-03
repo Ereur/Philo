@@ -1,5 +1,5 @@
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CC = cc -g
+CFLAGS = 
 SRCS = ./philo/main.c ./philo/utils/philo_lunch.c ./philo/utils/philo_inits.c ./philo/utils/atoi.c ./philo/utils/actions.c ./philo/utils/ft_sleep.c
 # FUNC_BONUS = checker.c ./push_swap_utils/get_next_line.c ./push_swap_utils/ft_check_args.c ./push_swap_utils/error_handler.c \
 # 			 ./push_swap_utils/operations.c ./push_swap_utils/operations1.c ./push_swap_utils/libft/libft.a
@@ -7,7 +7,7 @@ NAME = ./philo/philo.a
 NAME_BONUS = philo_bonus.a 
 OBJS = $(SRCS:.c=.o)
 AR = ar rc
-B_SRCS = ./pipx_bonus/pipex_bonus.c ./pipx_bonus/process.c ./utils/parsing.c ./utils/ft_substr.c ./utils/ft_strtrim.c ./utils/ft_strncmp.c ./utils/ft_strlen.c ./utils/ft_strjoin.c ./utils/ft_strchr.c ./utils/ft_split.c ./utils/error.c ./utils/get_next_line_utils.c .//pipx_bonus/get_next_line.c
+B_SRCS = ./philo_bonus/main.c ./philo_bonus/utils/philo_inits.c ./philo_bonus/utils/atoi.c ./philo_bonus/utils/actions.c ./philo_bonus/utils/ft_sleep.c ./philo_bonus/utils/philo_lunch.c 
 
 B_OBJS = $(B_SRCS:.c=.o)
 
@@ -31,7 +31,7 @@ $(NAME_BONUS): $(B_OBJS)
 	@rm -rf $(NAME)
 	@echo  $(CURSIVE)$(GRAY) "-MAKING BONUS..." $(NONE)
 	@$(AR) $(NAME_BONUS) $(B_OBJS)
-	@$(CC) $(CFLAGS) $(NAME_BONUS) -o pipex
+	@$(CC) $(CFLAGS) $(NAME_BONUS) -o philo.out
 	@echo  $(GREEN) "DONE!"
 
 clean:
