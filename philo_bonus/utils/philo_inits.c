@@ -6,7 +6,7 @@
 /*   By: aamoussa <aamoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 21:54:50 by aamoussa          #+#    #+#             */
-/*   Updated: 2022/08/01 14:35:47 by aamoussa         ###   ########.fr       */
+/*   Updated: 2022/08/20 15:39:48 by aamoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ void	ft_init_semaphore(t_philos *philos)
 	int	i;
 
 	i = 0;
-	sem_unlink("/fokrs");
+	sem_unlink("/forks");
 	philos->forks = sem_open("/forks", O_CREAT, 0644, philos->nb_of_philos);
-	// printf("%p\n", philos->forks);
 	sem_unlink("writing");
 	philos->writing = sem_open("writing", O_CREAT, 0644, 1);
 	i = 0;
 	sem_unlink("mealcheck");
+	philos->process_id = malloc(sizeof(pid_t) * philos->nb_of_philos);
 	philos->philo[0]->meal_check = sem_open("mealcheck", O_CREAT, 0644, 1);
 	while (i < philos->nb_of_philos)
 	{

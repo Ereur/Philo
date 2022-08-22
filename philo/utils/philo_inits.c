@@ -6,7 +6,7 @@
 /*   By: aamoussa <aamoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 21:54:50 by aamoussa          #+#    #+#             */
-/*   Updated: 2022/06/23 02:56:51 by aamoussa         ###   ########.fr       */
+/*   Updated: 2022/08/20 15:36:48 by aamoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,22 @@ void	ft_init_mutex(t_philos *philos)
 		pthread_mutex_init(&philos->philo[i++]->meal_check, NULL);
 }
 
+void	check_sign(char **argv)
+{
+	int	i;
+
+	i = 1;
+	while (argv[i])
+	{	
+		if (ft_atoi(argv[i]) <= 0)
+		{
+			printf("Invalid Input\n");
+			exit(1);
+		}
+		i++;
+	}
+}
+
 void	ft_init_philos(t_philos *philos, int ac, char **argv)
 {
 	int		i;
@@ -67,6 +83,7 @@ void	ft_init_philos(t_philos *philos, int ac, char **argv)
 		else
 			philos->philo[i]->number_of_eats = -1;
 		i++;
-	}	
+	}
+	check_sign(argv);
 	ft_init_mutex(philos);
 }
