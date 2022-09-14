@@ -1,6 +1,6 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
-#-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror 
+#-fsanitize=thread
 SRCS = ./philo/main.c ./philo/utils/philo_lunch.c ./philo/utils/philo_inits.c ./philo/utils/atoi.c ./philo/utils/actions.c ./philo/utils/ft_sleep.c
 # FUNC_BONUS = checker.c ./push_swap_utils/get_next_line.c ./push_swap_utils/ft_check_args.c ./push_swap_utils/error_handler.c \
 # 			 ./push_swap_utils/operations.c ./push_swap_utils/operations1.c ./push_swap_utils/libft/libft.a

@@ -6,7 +6,7 @@
 /*   By: aamoussa <aamoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 22:42:25 by aamoussa          #+#    #+#             */
-/*   Updated: 2022/08/20 13:08:09 by aamoussa         ###   ########.fr       */
+/*   Updated: 2022/08/23 12:00:38 by aamoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,32 @@ void	print_action(char *message, t_philo *philos)
 	sem_wait((philos->writing));
 	printf("%ld %d %s\n", time_stamp, philos->id, message);
 	sem_post((philos->writing));
+}
+
+void	ft_wait(t_philos philos)
+{
+	int	nbr;
+	int	status;
+	int	i;
+
+	i = 0;
+	nbr = 0;
+	while (waitpid(-1, &status, 0))
+	{
+		if (WEXITSTATUS(status))
+		{
+			while (i < philos.nb_of_philos)
+			{
+				kill(philos.process_id[i++], SIGKILL);
+			}
+		}
+		else if (!WEXITSTATUS(status))
+		{
+			nbr++;
+			if (nbr >= philos.nb_of_philos)
+				break ;
+		}
+	}
 }
 
 void	philo_eats(t_philo *philo)

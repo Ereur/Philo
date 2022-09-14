@@ -6,7 +6,7 @@
 /*   By: aamoussa <aamoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 22:02:43 by aamoussa          #+#    #+#             */
-/*   Updated: 2022/07/30 02:33:38 by aamoussa         ###   ########.fr       */
+/*   Updated: 2022/08/23 11:21:10 by aamoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ int	check_eats(t_philos *philos)
 	int	i;
 	int	eats;
 
-	eats = philos->philo[0]->number_of_eats;
 	i = 0;
 	while (i < philos->nb_of_philos)
-	{
-		if (philos->philo[i]->count_eats < eats)
+	{	
+		pthread_mutex_lock(&(philos->philo[i]->protect_count_eats));
+		eats = philos->philo[i]->count_eats;
+		pthread_mutex_unlock(&(philos->philo[i]->protect_count_eats));
+		if (eats < philos->philo[0]->number_of_eats)
 			return (1);
 		i++;
 	}
