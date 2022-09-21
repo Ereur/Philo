@@ -6,7 +6,7 @@
 /*   By: aamoussa <aamoussa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 22:42:25 by aamoussa          #+#    #+#             */
-/*   Updated: 2022/08/23 11:13:07 by aamoussa         ###   ########.fr       */
+/*   Updated: 2022/09/21 23:47:35 by aamoussa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	print_action(char *message, t_philo *philos)
 void	philo_eats(t_philo *philo)
 {
 	pthread_mutex_lock(philo->left_fork);
-	print_action("has taken left_fork", philo);
+	print_action("has taken a fork", philo);
 	pthread_mutex_lock(philo->right_fork);
-	print_action("has taken Righ_fork", philo);
+	print_action("has taken a fork", philo);
 	pthread_mutex_lock(&philo->meal_check);
 	philo->last_meal = get_time();
 	pthread_mutex_unlock(&philo->meal_check);
